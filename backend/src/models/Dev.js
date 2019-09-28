@@ -13,12 +13,18 @@ const DevSchema = new Schema({
     avatar: {
         type: String,
         required: true,
-    }
+    },
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }],
+    dislikes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }],
 }, {
     timestamps: true,
-
 });
 
 // timestamps will create two columns, createdAt and updateAt
-
 module.exports = model('Dev', DevSchema);
