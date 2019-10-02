@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import Logo from '../assets/logo.svg';
+import logo from '../assets/logo.svg';
 import './Login.css';
+import api from '../services/api';
 
 export default function Login({ history}) {
 
     const [username, setUsername] = useState('');
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log(username);
+        const response = await api.post('/devs', {
+            username,
+        });
 
-        history.push('/main');
+        console.log(response);
+        const { _id } = response.data;
+
+        history.push(`/dev/${_id}`);
     }
 
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit}>
-                <img src={Logo} alt="Tindev" />
+                <img src={logo} alt="Tindev" />
                 <input
                     value={username}
                     onChange={e => setUsername(e.target.value)}
